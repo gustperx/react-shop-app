@@ -17,7 +17,7 @@ export const Navbar = () => {
   return (
     <div className="navbar bg-neutral text-neutral-content">
       <div className="navbar-start">
-        <a className="btn btn-ghost normal-case text-xl">Portfolio</a>
+        <a className="btn btn-ghost normal-case text-xl">Shop App</a>
       </div>
       <div className="navbar-end">
         <div className="dropdown dropdown-end">

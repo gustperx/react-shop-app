@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { usePortfolio } from "../../hooks";
+import { useProduct } from "../../hooks";
 import { ProductAttributes, ProductItem } from "../../models";
 import { Header, Modal } from "../ui";
 import { Form } from ".";
@@ -10,23 +10,23 @@ interface Props {
 
 export const TableList: FC<Props> = ({ products }) => {
   const {
-    createCategory: createPortfolio,
-    updateCategory: updatePortfolio,
-    deleteCategory: deletePortfolio,
-    getCategoryById: getPortfolioById,
-  } = usePortfolio();
+    createProduct,
+    updateProduct,
+    deleteProduct,
+    getProductById,
+  } = useProduct();
 
   const [openModalUpdate, setOpenModalUpdate] = useState(false);
   const [openModalCreate, setOpenModalCreate] = useState(false);
   const [currentId, setCurrentId] = useState<string>();
-  const [seletedPortfolio, setSeletedPortfolio] =
+  const [seletedPortfolio, setSeletedProduct] =
     useState<ProductAttributes>();
 
   const handleModalUpdate = async (id: string) => {
     resetParams();
-    const language = await getPortfolioById(id);
+    const language = await getProductById(id);
     setCurrentId(id);
-    setSeletedPortfolio(language);
+    setSeletedProduct(language);
     setOpenModalUpdate(!openModalUpdate);
   };
 
@@ -37,7 +37,7 @@ export const TableList: FC<Props> = ({ products }) => {
 
   const resetParams = () => {
     setCurrentId("");
-    setSeletedPortfolio({
+    setSeletedProduct({
       title: "",
       description: "",
       slug: "",
@@ -49,14 +49,14 @@ export const TableList: FC<Props> = ({ products }) => {
 
   const handleEdit = async (data: ProductAttributes) => {
     if (!currentId) return;
-    await updatePortfolio(currentId, data);
+    await updateProduct(currentId, data);
   };
 
   return (
     <>
       <div className="mb-4">
         <Header
-          title="Portfolios"
+          title="Products"
           textAction="Crear nuevo"
           handleAction={handleModalCreate}
         />
@@ -88,7 +88,7 @@ export const TableList: FC<Props> = ({ products }) => {
                     </button>
                     <button
                       className="btn btn-ghost"
-                      onClick={() => deletePortfolio(item.id)}
+                      onClick={() => deleteProduct(item.id)}
                     >
                       Eliminar
                     </button>
@@ -110,7 +110,7 @@ export const TableList: FC<Props> = ({ products }) => {
 
       <Modal openModal={openModalCreate} handleModal={setOpenModalCreate}>
         <Form
-          handleForm={createPortfolio}
+          handleForm={createProduct}
           formValues={seletedPortfolio}
           handleModal={setOpenModalCreate}
         />

@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { Alert } from "../components/ui";
-import { useCategory, usePortfolio } from "../hooks";
+import { useCategory, useProduct } from "../hooks";
 
 export const DashboardPage = () => {
   const {
     products,
     getProducts,
     loading: loadingProducts,
-  } = usePortfolio();
+  } = useProduct();
   const { categories, getCategories, loading: loadingCategories } = useCategory();
 
   useEffect(() => {

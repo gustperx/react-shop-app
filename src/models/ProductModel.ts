@@ -34,7 +34,7 @@ export const productValidationRules = yup
 // Clase Modelo
 export class ProductModel extends FirestoreModel {
   // Firestore table name
-  static tableName: string = "portfolios";
+  static tableName: string = "products";
 
   static find(id: string): Promise<ProductItem> {
     return super.retriveDoc(ProductModel.tableName, id);

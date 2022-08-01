@@ -9,19 +9,19 @@ interface Props {
 }
 
 export const TableList: FC<Props> = ({ categories }) => {
-  const { createCategory: createLanguage, updateCategory: updateLanguage, deleteCategory: deleteLanguage, getCategoryById: getLanguageById } =
+  const { createCategory, updateCategory, deleteCategory, getCategoryById } =
     useCategory();
 
   const [openModalUpdate, setOpenModalUpdate] = useState(false);
   const [openModalCreate, setOpenModalCreate] = useState(false);
   const [currentId, setCurrentId] = useState<string>();
-  const [seletedLanguage, setSeletedLanguage] = useState<CategoryAttributes>();
+  const [seletedLanguage, setSeletedCategory] = useState<CategoryAttributes>();
 
   const handleModalUpdate = async (id: string) => {
     resetParams();
-    const language = await getLanguageById(id);
+    const language = await getCategoryById(id);
     setCurrentId(id);
-    setSeletedLanguage(language);
+    setSeletedCategory(language);
     setOpenModalUpdate(!openModalUpdate);
   };
 
@@ -32,19 +32,19 @@ export const TableList: FC<Props> = ({ categories }) => {
 
   const resetParams = () => {
     setCurrentId("");
-    setSeletedLanguage({ name: "" });
+    setSeletedCategory({ name: "" });
   };
 
   const handleEdit = async (data: CategoryAttributes) => {
     if (!currentId) return;
-    await updateLanguage(currentId, data);
+    await updateCategory(currentId, data);
   };
 
   return (
     <>
       <div className="mb-4">
         <Header
-          title="Lenguajes de programación"
+          title="Categories"
           textAction="Crear nuevo"
           handleAction={handleModalCreate}
         />
@@ -74,7 +74,7 @@ export const TableList: FC<Props> = ({ categories }) => {
                     </button>
                     <button
                       className="btn btn-ghost"
-                      onClick={() => deleteLanguage(item.id)}
+                      onClick={() => deleteCategory(item.id)}
                     >
                       Eliminar
                     </button>
@@ -96,7 +96,7 @@ export const TableList: FC<Props> = ({ categories }) => {
 
       <Modal openModal={openModalCreate} handleModal={setOpenModalCreate}>
         <Form
-          handleForm={createLanguage}
+          handleForm={createCategory}
           formValues={seletedLanguage}
           handleModal={setOpenModalCreate}
         />

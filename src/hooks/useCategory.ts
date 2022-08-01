@@ -77,12 +77,12 @@ export const useCategory = () => {
   };
 
   return {
-    categories: categories,
-    getCategoryById: getCategoryById,
-    getCategories: getCategories,
-    createCategory: createCategory,
-    updateCategory: updateCategory,
-    deleteCategory: deleteCategory,
+    categories,
+    getCategoryById,
+    getCategories,
+    createCategory,
+    updateCategory,
+    deleteCategory,
     loading,
     errorMessage,
   };

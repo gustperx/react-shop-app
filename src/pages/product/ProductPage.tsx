@@ -1,9 +1,9 @@
 import { TableList } from "../../components/product";
 import { Alert } from "../../components/ui";
-import { usePortfolio } from "../../hooks/useProduct";
+import { useProduct } from "../../hooks/useProduct";
 
 export const ProductPage = () => {
-  const { products, errorMessage } = usePortfolio();
+  const { products, errorMessage } = useProduct();
 
   return (
     <>

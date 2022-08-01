@@ -12,7 +12,7 @@ import {
 } from "../store/slices/product";
 import { ProductAttributes } from "../models";
 
-export const usePortfolio = () => {
+export const useProduct = () => {
   const dispatch = useAppDispatch();
   const products = useAppSelector(selectAllProducts);
   const portfoliosEntity = useAppSelector(selectProductEntities);
