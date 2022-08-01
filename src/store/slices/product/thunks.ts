@@ -1,18 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { firebaseHandleError } from "../../../firebase/errors/firebaseHandleError";
 
-import { PortfolioModel, PortfolioAttributes } from "../../../models";
+import { ProductModel, ProductAttributes } from "../../../models";
 
 export interface updatePortfolioProps {
   id: string;
-  payload: PortfolioAttributes;
+  payload: ProductAttributes;
 }
 
-export const getPortfoliosAsync = createAsyncThunk(
-  "portfolios/getPortfoliosAsync",
+export const getProductsAsync = createAsyncThunk(
+  "products/getPortfoliosAsync",
   async (_, { rejectWithValue }) => {
     try {
-      const portfolios = await PortfolioModel.findAll();
+      const portfolios = await ProductModel.findAll();
       return portfolios;
     } catch (error: unknown) {
       return rejectWithValue(firebaseHandleError(error));
@@ -20,11 +20,11 @@ export const getPortfoliosAsync = createAsyncThunk(
   }
 );
 
-export const createPortfolioAsync = createAsyncThunk(
-  "portfolios/createPortfolioAsync",
-  async (data: PortfolioAttributes, { rejectWithValue }) => {
+export const createProductAsync = createAsyncThunk(
+  "products/createProrductAsync",
+  async (data: ProductAttributes, { rejectWithValue }) => {
     try {
-      const id = await PortfolioModel.create(data);
+      const id = await ProductModel.create(data);
       return {
         ...data,
         id,
@@ -35,11 +35,11 @@ export const createPortfolioAsync = createAsyncThunk(
   }
 );
 
-export const updatePortfolioAsync = createAsyncThunk(
-  "portfolios/updatePortfolioAsync",
+export const updateProductAsync = createAsyncThunk(
+  "products/updateProrductAsync",
   async (data: updatePortfolioProps, { rejectWithValue }) => {
     try {
-      await PortfolioModel.update(data.id, data.payload);
+      await ProductModel.update(data.id, data.payload);
       return {
         ...data.payload,
         id: data.id,
@@ -50,11 +50,11 @@ export const updatePortfolioAsync = createAsyncThunk(
   }
 );
 
-export const deletePortfolioAsync = createAsyncThunk(
-  "portfolios/deletePortfolioAsync",
+export const deleteProductAsync = createAsyncThunk(
+  "products/deleteProrductAsync",
   async (id: string, { rejectWithValue }) => {
     try {
-      await PortfolioModel.destroy(id);
+      await ProductModel.destroy(id);
       return id;
     } catch (error: unknown) {
       return rejectWithValue(firebaseHandleError(error));

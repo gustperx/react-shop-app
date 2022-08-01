@@ -1,15 +1,15 @@
 import { Alert } from "../../components/ui";
-import { TableList } from "../../components/language";
-import { useLanguage } from "../../hooks";
+import { TableList } from "../../components/category";
+import { useCategory } from "../../hooks";
 
 export const LanguagePage = () => {
-  const { languages, errorMessage } = useLanguage();
+  const { categories, errorMessage } = useCategory();
 
   return (
     <>
       {errorMessage ? <Alert message={errorMessage} alert="alert-error" /> : ""}
 
-      <TableList languages={languages} />
+      <TableList categories={categories} />
     </>
   );
 };

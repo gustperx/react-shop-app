@@ -3,43 +3,43 @@ import "sweetalert2/dist/sweetalert2.css";
 
 import { useAppDispatch, useAppSelector } from "./useAppState";
 import {
-  createPortfolioAsync,
-  deletePortfolioAsync,
-  getPortfoliosAsync,
-  selectAllPortfolios,
-  selectPortfolioEntities,
-  updatePortfolioAsync,
-} from "../store/slices/portfolio";
-import { PortfolioAttributes } from "../models";
+  createProductAsync,
+  deleteProductAsync,
+  getProductsAsync,
+  selectAllProducts,
+  selectProductEntities,
+  updateProductAsync,
+} from "../store/slices/product";
+import { ProductAttributes } from "../models";
 
 export const usePortfolio = () => {
   const dispatch = useAppDispatch();
-  const portfolios = useAppSelector(selectAllPortfolios);
-  const portfoliosEntity = useAppSelector(selectPortfolioEntities);
-  const { loading, errorMessage } = useAppSelector((state) => state.portfolios);
+  const products = useAppSelector(selectAllProducts);
+  const portfoliosEntity = useAppSelector(selectProductEntities);
+  const { loading, errorMessage } = useAppSelector((state) => state.products);
 
-  const getPortfolioById = (id: string) => {
+  const getProductById = (id: string) => {
     return portfoliosEntity[id];
   };
 
-  const getPortfolios = () => {
-    dispatch(getPortfoliosAsync());
+  const getProducts = () => {
+    dispatch(getProductsAsync());
   };
 
-  const createPortfolio = async (data: PortfolioAttributes) => {
+  const createProduct = async (data: ProductAttributes) => {
     Swal.fire({
       title: "Espere por favor",
       allowOutsideClick: false,
     });
     Swal.showLoading();
-    await dispatch(createPortfolioAsync(data));
+    await dispatch(createProductAsync(data));
     Swal.hideLoading();
     Swal.close();
   };
 
-  const updatePortfolio = async (
+  const updateProduct = async (
     portfolioId: string,
-    data: PortfolioAttributes
+    data: ProductAttributes
   ) => {
     Swal.fire({
       title: "Espere por favor",
@@ -47,7 +47,7 @@ export const usePortfolio = () => {
     });
     Swal.showLoading();
     await dispatch(
-      updatePortfolioAsync({
+      updateProductAsync({
         id: portfolioId,
         payload: data,
       })
@@ -56,7 +56,7 @@ export const usePortfolio = () => {
     Swal.close();
   };
 
-  const deletePortfolio = async (id: string) => {
+  const deleteProduct = async (id: string) => {
     const { isConfirmed } = await Swal.fire({
       title: "¿Está seguro?",
       text: "Una vez borrado, no se puede recuperar",
@@ -70,19 +70,19 @@ export const usePortfolio = () => {
         allowOutsideClick: false,
       });
       Swal.showLoading();
-      await dispatch(deletePortfolioAsync(id));
+      await dispatch(deleteProductAsync(id));
       Swal.hideLoading();
       Swal.close();
     }
   };
 
   return {
-    portfolios,
-    getPortfolioById,
-    getPortfolios,
-    createPortfolio,
-    updatePortfolio,
-    deletePortfolio,
+    products,
+    getProductById,
+    getProducts,
+    createProduct,
+    updateProduct,
+    deleteProduct,
     loading,
     errorMessage,
   };

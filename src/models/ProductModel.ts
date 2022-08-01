@@ -5,7 +5,7 @@ import { FirestoreModel } from "./";
 import { ISelectInput } from "../types";
 
 // Attributos principales del modelo
-export interface PortfolioAttributes {
+export interface ProductAttributes {
   title: string;
   description: string;
   slug: string;
@@ -15,12 +15,12 @@ export interface PortfolioAttributes {
 }
 
 // No hace falta modificar esta interface
-export interface PortfolioItem extends PortfolioAttributes {
+export interface ProductItem extends ProductAttributes {
   id: string;
 }
 
 // Validar los attributes para crear o editar
-export const portfolioValidationRules = yup
+export const productValidationRules = yup
   .object({
     title: yup.string().min(3).required(),
     description: yup.string().min(3).required(),
@@ -32,28 +32,28 @@ export const portfolioValidationRules = yup
   .required();
 
 // Clase Modelo
-export class PortfolioModel extends FirestoreModel {
+export class ProductModel extends FirestoreModel {
   // Firestore table name
   static tableName: string = "portfolios";
 
-  static find(id: string): Promise<PortfolioItem> {
-    return super.retriveDoc(PortfolioModel.tableName, id);
+  static find(id: string): Promise<ProductItem> {
+    return super.retriveDoc(ProductModel.tableName, id);
   }
 
-  static findAll(): Promise<PortfolioItem[]> {
-    return super.retriveAllDoc(PortfolioModel.tableName);
+  static findAll(): Promise<ProductItem[]> {
+    return super.retriveAllDoc(ProductModel.tableName);
   }
 
-  static async create(attributes: PortfolioAttributes): Promise<string> {
-    const docRef = await super.createDoc(PortfolioModel.tableName, attributes);
+  static async create(attributes: ProductAttributes): Promise<string> {
+    const docRef = await super.createDoc(ProductModel.tableName, attributes);
     return docRef.id;
   }
 
-  static update(id: string, attributes: PortfolioAttributes): Promise<void> {
-    return super.updateDoc(PortfolioModel.tableName, id, attributes);
+  static update(id: string, attributes: ProductAttributes): Promise<void> {
+    return super.updateDoc(ProductModel.tableName, id, attributes);
   }
 
   static destroy(id: string): Promise<void> {
-    return super.deleteDoc(PortfolioModel.tableName, id);
+    return super.deleteDoc(ProductModel.tableName, id);
   }
 }

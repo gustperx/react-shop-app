@@ -1,15 +1,15 @@
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { PortfolioAttributes, portfolioValidationRules } from "../../models";
+import { ProductAttributes, productValidationRules } from "../../models";
 import { Input, Textarea, Checkbox, InputSelect } from "../ui";
 
-import { useLanguage } from "../../hooks";
+import { useCategory } from "../../hooks";
 import { getSelectOptions } from "../../helpers";
 
 interface Props {
-  handleForm: (data: PortfolioAttributes) => void;
-  formValues?: PortfolioAttributes;
+  handleForm: (data: ProductAttributes) => void;
+  formValues?: ProductAttributes;
   handleModal?: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -19,19 +19,19 @@ export const Form: FC<Props> = ({ handleForm, formValues, handleModal }) => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<PortfolioAttributes>({
-    resolver: yupResolver(portfolioValidationRules),
+  } = useForm<ProductAttributes>({
+    resolver: yupResolver(productValidationRules),
     defaultValues: formValues,
   });
 
-  const { languages } = useLanguage();
-  const options = getSelectOptions(languages.map((item) => item.name));
+  const { categories } = useCategory();
+  const options = getSelectOptions(categories.map((item) => item.name));
 
   useEffect(() => {
     reset(formValues);
   }, [formValues]);
 
-  const onSubmit: SubmitHandler<PortfolioAttributes> = (data) => {
+  const onSubmit: SubmitHandler<ProductAttributes> = (data) => {
     handleForm(data);
 
     if (!handleModal) return;

@@ -1,32 +1,27 @@
 import { FC, useState } from "react";
-import { usePortfolio } from "../../hooks";
-import { PortfolioAttributes, PortfolioItem } from "../../models";
+import { useCategory } from "../../hooks";
+import { CategoryAttributes, CategoryItem } from "../../models";
 import { Header, Modal } from "../ui";
-import { Form } from "./";
+import { Form } from ".";
 
 interface Props {
-  portfolios: PortfolioItem[];
+  categories: CategoryItem[];
 }
 
-export const TableList: FC<Props> = ({ portfolios }) => {
-  const {
-    createPortfolio,
-    updatePortfolio,
-    deletePortfolio,
-    getPortfolioById,
-  } = usePortfolio();
+export const TableList: FC<Props> = ({ categories }) => {
+  const { createCategory: createLanguage, updateCategory: updateLanguage, deleteCategory: deleteLanguage, getCategoryById: getLanguageById } =
+    useCategory();
 
   const [openModalUpdate, setOpenModalUpdate] = useState(false);
   const [openModalCreate, setOpenModalCreate] = useState(false);
   const [currentId, setCurrentId] = useState<string>();
-  const [seletedPortfolio, setSeletedPortfolio] =
-    useState<PortfolioAttributes>();
+  const [seletedLanguage, setSeletedLanguage] = useState<CategoryAttributes>();
 
   const handleModalUpdate = async (id: string) => {
     resetParams();
-    const language = await getPortfolioById(id);
+    const language = await getLanguageById(id);
     setCurrentId(id);
-    setSeletedPortfolio(language);
+    setSeletedLanguage(language);
     setOpenModalUpdate(!openModalUpdate);
   };
 
@@ -37,26 +32,19 @@ export const TableList: FC<Props> = ({ portfolios }) => {
 
   const resetParams = () => {
     setCurrentId("");
-    setSeletedPortfolio({
-      title: "",
-      description: "",
-      slug: "",
-      visible: false,
-      highlight: false,
-      languages: [],
-    });
+    setSeletedLanguage({ name: "" });
   };
 
-  const handleEdit = async (data: PortfolioAttributes) => {
+  const handleEdit = async (data: CategoryAttributes) => {
     if (!currentId) return;
-    await updatePortfolio(currentId, data);
+    await updateLanguage(currentId, data);
   };
 
   return (
     <>
       <div className="mb-4">
         <Header
-          title="Portfolios"
+          title="Lenguajes de programación"
           textAction="Crear nuevo"
           handleAction={handleModalCreate}
         />
@@ -67,18 +55,16 @@ export const TableList: FC<Props> = ({ portfolios }) => {
           <thead>
             <tr>
               <th>id</th>
-              <th>title</th>
-              <th>visible</th>
+              <th>name</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {portfolios.map((item) => {
+            {categories.map((item) => {
               return (
                 <tr key={item.id}>
                   <td>{item.id}</td>
-                  <td>{item.title}</td>
-                  <td>{item.visible ? "Si" : "No"}</td>
+                  <td>{item.name}</td>
                   <td>
                     <button
                       className="btn btn-ghost"
@@ -88,7 +74,7 @@ export const TableList: FC<Props> = ({ portfolios }) => {
                     </button>
                     <button
                       className="btn btn-ghost"
-                      onClick={() => deletePortfolio(item.id)}
+                      onClick={() => deleteLanguage(item.id)}
                     >
                       Eliminar
                     </button>
@@ -103,15 +89,15 @@ export const TableList: FC<Props> = ({ portfolios }) => {
       <Modal openModal={openModalUpdate} handleModal={setOpenModalUpdate}>
         <Form
           handleForm={handleEdit}
-          formValues={seletedPortfolio}
+          formValues={seletedLanguage}
           handleModal={setOpenModalUpdate}
         />
       </Modal>
 
       <Modal openModal={openModalCreate} handleModal={setOpenModalCreate}>
         <Form
-          handleForm={createPortfolio}
-          formValues={seletedPortfolio}
+          handleForm={createLanguage}
+          formValues={seletedLanguage}
           handleModal={setOpenModalCreate}
         />
       </Modal>

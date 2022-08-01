@@ -1,15 +1,15 @@
-import { TableList } from "../../components/portfolio";
+import { TableList } from "../../components/product";
 import { Alert } from "../../components/ui";
-import { usePortfolio } from "../../hooks/usePortfolio";
+import { usePortfolio } from "../../hooks/useProduct";
 
 export const PortfolioPage = () => {
-  const { portfolios, errorMessage } = usePortfolio();
+  const { products, errorMessage } = usePortfolio();
 
   return (
     <>
       {errorMessage ? <Alert message={errorMessage} alert="alert-error" /> : ""}
 
-      <TableList portfolios={portfolios} />
+      <TableList products={products} />
     </>
   );
 };

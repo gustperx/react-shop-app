@@ -1,3 +1,3 @@
 export * from "./FirestoreModel";
-export * from "./PortfolioModel";
-export * from "./LanguageModel";
+export * from "./ProductModel";
+export * from "./CategoryModel";

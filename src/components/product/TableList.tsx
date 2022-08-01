@@ -1,27 +1,32 @@
 import { FC, useState } from "react";
-import { useLanguage } from "../../hooks";
-import { LanguageAttributes, LanguageItem } from "../../models";
+import { usePortfolio } from "../../hooks";
+import { ProductAttributes, ProductItem } from "../../models";
 import { Header, Modal } from "../ui";
-import { Form } from "./";
+import { Form } from ".";
 
 interface Props {
-  languages: LanguageItem[];
+  products: ProductItem[];
 }
 
-export const TableList: FC<Props> = ({ languages }) => {
-  const { createLanguage, updateLanguage, deleteLanguage, getLanguageById } =
-    useLanguage();
+export const TableList: FC<Props> = ({ products }) => {
+  const {
+    createCategory: createPortfolio,
+    updateCategory: updatePortfolio,
+    deleteCategory: deletePortfolio,
+    getCategoryById: getPortfolioById,
+  } = usePortfolio();
 
   const [openModalUpdate, setOpenModalUpdate] = useState(false);
   const [openModalCreate, setOpenModalCreate] = useState(false);
   const [currentId, setCurrentId] = useState<string>();
-  const [seletedLanguage, setSeletedLanguage] = useState<LanguageAttributes>();
+  const [seletedPortfolio, setSeletedPortfolio] =
+    useState<ProductAttributes>();
 
   const handleModalUpdate = async (id: string) => {
     resetParams();
-    const language = await getLanguageById(id);
+    const language = await getPortfolioById(id);
     setCurrentId(id);
-    setSeletedLanguage(language);
+    setSeletedPortfolio(language);
     setOpenModalUpdate(!openModalUpdate);
   };
 
@@ -32,19 +37,26 @@ export const TableList: FC<Props> = ({ languages }) => {
 
   const resetParams = () => {
     setCurrentId("");
-    setSeletedLanguage({ name: "" });
+    setSeletedPortfolio({
+      title: "",
+      description: "",
+      slug: "",
+      visible: false,
+      highlight: false,
+      languages: [],
+    });
   };
 
-  const handleEdit = async (data: LanguageAttributes) => {
+  const handleEdit = async (data: ProductAttributes) => {
     if (!currentId) return;
-    await updateLanguage(currentId, data);
+    await updatePortfolio(currentId, data);
   };
 
   return (
     <>
       <div className="mb-4">
         <Header
-          title="Lenguajes de programación"
+          title="Portfolios"
           textAction="Crear nuevo"
           handleAction={handleModalCreate}
         />
@@ -55,16 +67,18 @@ export const TableList: FC<Props> = ({ languages }) => {
           <thead>
             <tr>
               <th>id</th>
-              <th>name</th>
+              <th>title</th>
+              <th>visible</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {languages.map((item) => {
+            {products.map((item) => {
               return (
                 <tr key={item.id}>
                   <td>{item.id}</td>
-                  <td>{item.name}</td>
+                  <td>{item.title}</td>
+                  <td>{item.visible ? "Si" : "No"}</td>
                   <td>
                     <button
                       className="btn btn-ghost"
@@ -74,7 +88,7 @@ export const TableList: FC<Props> = ({ languages }) => {
                     </button>
                     <button
                       className="btn btn-ghost"
-                      onClick={() => deleteLanguage(item.id)}
+                      onClick={() => deletePortfolio(item.id)}
                     >
                       Eliminar
                     </button>
@@ -89,15 +103,15 @@ export const TableList: FC<Props> = ({ languages }) => {
       <Modal openModal={openModalUpdate} handleModal={setOpenModalUpdate}>
         <Form
           handleForm={handleEdit}
-          formValues={seletedLanguage}
+          formValues={seletedPortfolio}
           handleModal={setOpenModalUpdate}
         />
       </Modal>
 
       <Modal openModal={openModalCreate} handleModal={setOpenModalCreate}>
         <Form
-          handleForm={createLanguage}
-          formValues={seletedLanguage}
+          handleForm={createPortfolio}
+          formValues={seletedPortfolio}
           handleModal={setOpenModalCreate}
         />
       </Modal>

@@ -3,43 +3,43 @@ import "sweetalert2/dist/sweetalert2.css";
 
 import { useAppDispatch, useAppSelector } from "./useAppState";
 import {
-  createLanguageAsync,
-  deleteLanguageAsync,
-  getLanguagesAsync,
-  selectAllLanguage,
-  selectLanguageEntities,
-  updateLanguageAsync,
-} from "../store/slices/language";
-import { LanguageAttributes } from "../models";
+  createCategoryAsync,
+  deleteCategoryAsync,
+  getCategoriesAsync,
+  selectAllCategories,
+  selectCategoryEntities,
+  updateCategoryAsync,
+} from "../store/slices/category";
+import { CategoryAttributes } from "../models";
 
-export const useLanguage = () => {
+export const useCategory = () => {
   const dispatch = useAppDispatch();
-  const languages = useAppSelector(selectAllLanguage);
-  const languagesEntity = useAppSelector(selectLanguageEntities);
-  const { loading, errorMessage } = useAppSelector((state) => state.languages);
+  const categories = useAppSelector(selectAllCategories);
+  const languagesEntity = useAppSelector(selectCategoryEntities);
+  const { loading, errorMessage } = useAppSelector((state) => state.categories);
 
-  const getLanguageById = (id: string) => {
+  const getCategoryById = (id: string) => {
     return languagesEntity[id];
   };
 
-  const getLanguages = () => {
-    dispatch(getLanguagesAsync());
+  const getCategories = () => {
+    dispatch(getCategoriesAsync());
   };
 
-  const createLanguage = async (data: LanguageAttributes) => {
+  const createCategory = async (data: CategoryAttributes) => {
     Swal.fire({
       title: "Espere por favor",
       allowOutsideClick: false,
     });
     Swal.showLoading();
-    await dispatch(createLanguageAsync(data));
+    await dispatch(createCategoryAsync(data));
     Swal.hideLoading();
     Swal.close();
   };
 
-  const updateLanguage = async (
+  const updateCategory = async (
     languageId: string,
-    data: LanguageAttributes
+    data: CategoryAttributes
   ) => {
     Swal.fire({
       title: "Espere por favor",
@@ -47,7 +47,7 @@ export const useLanguage = () => {
     });
     Swal.showLoading();
     await dispatch(
-      updateLanguageAsync({
+      updateCategoryAsync({
         id: languageId,
         payload: data,
       })
@@ -56,7 +56,7 @@ export const useLanguage = () => {
     Swal.close();
   };
 
-  const deleteLanguage = async (id: string) => {
+  const deleteCategory = async (id: string) => {
     const { isConfirmed } = await Swal.fire({
       title: "¿Está seguro?",
       text: "Una vez borrado, no se puede recuperar",
@@ -70,19 +70,19 @@ export const useLanguage = () => {
         allowOutsideClick: false,
       });
       Swal.showLoading();
-      await dispatch(deleteLanguageAsync(id));
+      await dispatch(deleteCategoryAsync(id));
       Swal.hideLoading();
       Swal.close();
     }
   };
 
   return {
-    languages,
-    getLanguageById,
-    getLanguages,
-    createLanguage,
-    updateLanguage,
-    deleteLanguage,
+    categories: categories,
+    getCategoryById: getCategoryById,
+    getCategories: getCategories,
+    createCategory: createCategory,
+    updateCategory: updateCategory,
+    deleteCategory: deleteCategory,
     loading,
     errorMessage,
   };

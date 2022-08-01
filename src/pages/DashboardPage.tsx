@@ -1,39 +1,39 @@
 import { useEffect } from "react";
 import { Alert } from "../components/ui";
-import { useLanguage, usePortfolio } from "../hooks";
+import { useCategory, usePortfolio } from "../hooks";
 
 export const DashboardPage = () => {
   const {
-    portfolios,
-    getPortfolios,
-    loading: loadingPortfolios,
+    products,
+    getProducts,
+    loading: loadingProducts,
   } = usePortfolio();
-  const { languages, getLanguages, loading: loadingLanguages } = useLanguage();
+  const { categories, getCategories, loading: loadingCategories } = useCategory();
 
   useEffect(() => {
-    getLanguages();
-    getPortfolios();
+    getCategories();
+    getProducts();
   }, []);
 
   return (
     <>
-      {loadingPortfolios ? (
-        <Alert message="Cargando Portfolios" alert="alert-info" />
+      {loadingProducts ? (
+        <Alert message="Cargando productos" alert="alert-info" />
       ) : (
         ""
       )}
 
-      {loadingLanguages ? (
+      {loadingCategories ? (
         <Alert
-          message="Cargando lenguajes de programación"
+          message="Cargando categorias"
           alert="alert-info"
         />
       ) : (
         ""
       )}
 
-      <h3 className="text-3xl">Portfolios: {portfolios.length}</h3>
-      <h3 className="text-3xl">Languages: {languages.length}</h3>
+      <h3 className="text-3xl">Productos: {products.length}</h3>
+      <h3 className="text-3xl">Categorias: {categories.length}</h3>
     </>
   );
 };

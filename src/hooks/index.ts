@@ -1,4 +1,4 @@
 export * from "./useAppState";
-export * from "./usePortfolio";
+export * from "./useProduct";
 export * from "./useAuth";
-export * from "./useLanguage";
+export * from "./useCategory";

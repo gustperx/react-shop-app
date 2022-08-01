@@ -1,12 +1,12 @@
 import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { LanguageAttributes, languageValidationRules } from "../../models";
+import { CategoryAttributes, categoryValidationRules } from "../../models";
 import { Input } from "../ui";
 
 interface Props {
-  handleForm: (data: LanguageAttributes) => void;
-  formValues?: LanguageAttributes;
+  handleForm: (data: CategoryAttributes) => void;
+  formValues?: CategoryAttributes;
   handleModal?: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -16,8 +16,8 @@ export const Form: FC<Props> = ({ handleForm, formValues, handleModal }) => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<LanguageAttributes>({
-    resolver: yupResolver(languageValidationRules),
+  } = useForm<CategoryAttributes>({
+    resolver: yupResolver(categoryValidationRules),
     defaultValues: formValues,
   });
 
@@ -25,7 +25,7 @@ export const Form: FC<Props> = ({ handleForm, formValues, handleModal }) => {
     reset(formValues);
   }, [formValues]);
 
-  const onSubmit: SubmitHandler<LanguageAttributes> = (data) => {
+  const onSubmit: SubmitHandler<CategoryAttributes> = (data) => {
     handleForm(data);
 
     if (!handleModal) return;

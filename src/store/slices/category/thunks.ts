@@ -1,18 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { firebaseHandleError } from "../../../firebase/errors/firebaseHandleError";
 
-import { LanguageModel, LanguageAttributes } from "../../../models";
+import { CategoryModel, CategoryAttributes } from "../../../models";
 
 export interface updatePortfolioProps {
   id: string;
-  payload: LanguageAttributes;
+  payload: CategoryAttributes;
 }
 
-export const getLanguagesAsync = createAsyncThunk(
-  "languages/getLanguagesAsync",
+export const getCategoriesAsync = createAsyncThunk(
+  "categories/getCategoriesAsync",
   async (_, { rejectWithValue }) => {
     try {
-      const portfolios = await LanguageModel.findAll();
+      const portfolios = await CategoryModel.findAll();
       return portfolios;
     } catch (error: unknown) {
       return rejectWithValue(firebaseHandleError(error));
@@ -20,11 +20,11 @@ export const getLanguagesAsync = createAsyncThunk(
   }
 );
 
-export const createLanguageAsync = createAsyncThunk(
-  "languages/createLanguageAsync",
-  async (data: LanguageAttributes, { rejectWithValue }) => {
+export const createCategoryAsync = createAsyncThunk(
+  "categories/createCategoryAsync",
+  async (data: CategoryAttributes, { rejectWithValue }) => {
     try {
-      const id = await LanguageModel.create(data);
+      const id = await CategoryModel.create(data);
       return {
         ...data,
         id,
@@ -35,11 +35,11 @@ export const createLanguageAsync = createAsyncThunk(
   }
 );
 
-export const updateLanguageAsync = createAsyncThunk(
-  "languages/updateLanguageAsync",
+export const updateCategoryAsync = createAsyncThunk(
+  "categories/updateCategoryAsync",
   async (data: updatePortfolioProps, { rejectWithValue }) => {
     try {
-      await LanguageModel.update(data.id, data.payload);
+      await CategoryModel.update(data.id, data.payload);
       return {
         ...data.payload,
         id: data.id,
@@ -50,11 +50,11 @@ export const updateLanguageAsync = createAsyncThunk(
   }
 );
 
-export const deleteLanguageAsync = createAsyncThunk(
-  "languages/deleteLanguageAsync",
+export const deleteCategoryAsync = createAsyncThunk(
+  "categories/deleteCategoryAsync",
   async (id: string, { rejectWithValue }) => {
     try {
-      await LanguageModel.destroy(id);
+      await CategoryModel.destroy(id);
       return id;
     } catch (error: unknown) {
       return rejectWithValue(firebaseHandleError(error));
