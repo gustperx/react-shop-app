@@ -2,7 +2,7 @@ import { TableList } from "../../components/product";
 import { Alert } from "../../components/ui";
 import { usePortfolio } from "../../hooks/useProduct";
 
-export const PortfolioPage = () => {
+export const ProductPage = () => {
   const { products, errorMessage } = usePortfolio();
 
   return (

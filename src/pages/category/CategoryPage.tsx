@@ -2,7 +2,7 @@ import { Alert } from "../../components/ui";
 import { TableList } from "../../components/category";
 import { useCategory } from "../../hooks";
 
-export const LanguagePage = () => {
+export const CategoryPage = () => {
   const { categories, errorMessage } = useCategory();
 
   return (

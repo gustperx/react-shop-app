@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import { PortfolioPage } from "../pages/portfolio";
-import { LanguagePage } from "../pages/language";
+import { ProductPage } from "../pages/product";
+import { CategoryPage } from "../pages/category";
 import { MainLayout } from "../components/layouts";
 import { Error404 } from "../components";
 import { DashboardPage } from "../pages/DashboardPage";
@@ -12,9 +12,9 @@ export const MainRouterAdmin = () => {
         <Route path="/" element={<DashboardPage />} />
 
         {/* Portfolio */}
-        <Route path="/portfolios" element={<PortfolioPage />} />
+        <Route path="/products" element={<ProductPage />} />
         {/* Language */}
-        <Route path="/languages" element={<LanguagePage />} />
+        <Route path="/categories" element={<CategoryPage />} />
 
         {/* Error */}
         <Route path="*" element={<Error404 />} />
