@@ -2,14 +2,14 @@ import { es } from "yup-locales";
 import * as yup from "yup";
 yup.setLocale(es);
 import { FirestoreModel } from "./";
-import { ISelectInput } from "../types";
+import { ISelectInput, TextDescription } from "../types";
 
 // Attributos principales del modelo
 export interface ProductAttributes {
   title: string;
-  description: string;
+  description: TextDescription;
   slug: string;
-  languages: ISelectInput[];
+  categories: ISelectInput[];
   visible: boolean;
   highlight: boolean;
 }
@@ -23,11 +23,11 @@ export interface ProductItem extends ProductAttributes {
 export const productValidationRules = yup
   .object({
     title: yup.string().min(3).required(),
-    description: yup.string().min(3).required(),
+    description: yup.object().required(),
     slug: yup.string().min(3).required(),
     visible: yup.boolean().required(),
     highlight: yup.boolean().required(),
-    languages: yup.array().min(1).required(),
+    categories: yup.array().min(1).required(),
   })
   .required();
 

@@ -1,8 +1,9 @@
 import { Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
+
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ProductAttributes, productValidationRules } from "../../models";
-import { Input, Textarea, Checkbox, InputSelect } from "../ui";
+import { Input, Checkbox, InputSelect, TextEditor } from "../ui";
 
 import { useCategory } from "../../hooks";
 import { getSelectOptions } from "../../helpers";
@@ -46,9 +47,9 @@ export const Form: FC<Props> = ({ handleForm, formValues, handleModal }) => {
           control={control}
           render={({ field: { onChange, value } }) => (
             <Input
-              label="Title"
+              label="Product"
               type="text"
-              placeholder="My project"
+              placeholder="My product"
               handleChange={onChange}
               inputValue={value}
               activeError={errors.title}
@@ -74,30 +75,29 @@ export const Form: FC<Props> = ({ handleForm, formValues, handleModal }) => {
       </div>
       <div className="flex">
         <Controller
-          name="description"
+          name="categories"
           control={control}
           render={({ field: { onChange, value } }) => (
-            <Textarea
-              label="Description"
-              placeholder="Bio"
+            <InputSelect
+              label="Categories"
               handleChange={onChange}
               inputValue={value}
-              activeError={errors.description}
+              options={options}
+              activeError={errors.categories}
             />
           )}
         />
       </div>
       <div className="flex">
         <Controller
-          name="languages"
+          name="description"
           control={control}
           render={({ field: { onChange, value } }) => (
-            <InputSelect
-              label="languages"
-              handleChange={onChange}
+            <TextEditor
+              label="Description"
               inputValue={value}
-              options={options}
-              activeError={errors.languages}
+              handleChange={onChange}
+              activeError={errors.description ? true : false}
             />
           )}
         />
