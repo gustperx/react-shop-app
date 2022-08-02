@@ -1,3 +1,7 @@
+# Shop App
+
+## Project created for educational purposes
+
 ## Settings
 
 Create a firebase application and a firestore database
