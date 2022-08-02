@@ -1,21 +1,21 @@
 import { FC, ReactNode } from "react";
-import { Footer, Navbar } from "../ui";
+import { FooterShop, NavbarShop } from "../ui";
 
 interface Props {
   children: ReactNode;
 }
 
-export const MainLayout: FC<Props> = ({ children }) => {
+export const ShopLayout: FC<Props> = ({ children }) => {
   return (
-    <div data-theme="night">
+    <div data-theme="winter">
       <div className="flex flex-col min-h-screen">
-        <Navbar />
+        <NavbarShop />
 
         <div className="flex-auto container sm:mx-auto mt-16 mb-12">
           {children}
         </div>
 
-        <Footer />
+        <FooterShop />
       </div>
     </div>
   );

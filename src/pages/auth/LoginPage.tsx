@@ -5,12 +5,13 @@ import * as yup from "yup";
 yup.setLocale(es);
 
 import { FirebaseError } from "firebase/app";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { signInEmailAndPassword } from "../../firebase/auth";
 
 import { AuthCredentials, AuthErrors } from "../../types";
+import { Input } from "../../components/ui";
 
 export const schemaLogin = yup
   .object({
@@ -24,6 +25,7 @@ export const LoginPage = () => {
   const [error, setError] = useState<string>();
 
   const {
+    control,
     register,
     handleSubmit,
     reset,
@@ -40,6 +42,7 @@ export const LoginPage = () => {
   const handleLogin = async (data: AuthCredentials) => {
     try {
       setLoading(true);
+      setError("")
       await signInEmailAndPassword(data);
       setLoading(false);
     } catch (error: unknown) {
@@ -53,39 +56,53 @@ export const LoginPage = () => {
   };
 
   return (
-    <>
-      <h1>Login Page</h1>
-
-      <p>{error}</p>
-      <p>{loading ? "Realizando autenticación espere..." : ""}</p>
-
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label htmlFor="login_email"></label>
-          <input
-            type="text"
-            id="login_email"
-            {...register("email")}
-            placeholder="Email"
-          />
-          {errors.email && <p>{errors.email.message}</p>}
-        </div>
-        <div>
-          <label htmlFor="login_password"></label>
-          <input
-            type="password"
-            id="login_password"
-            {...register("password")}
-            placeholder="Password"
-          />
-          {errors.password && <p>{errors.password.message}</p>}
-        </div>
-        <div>
-          <button disabled={loading} type="submit">
-            Login
-          </button>
-        </div>
-      </form>
-    </>
+    <div className="flex flex-col justify-center items-center">
+      <div>
+        <h1 className="text-2xl font-bold mb-4">Log in</h1>
+      </div>
+      <div className="mb-4">
+        <p className="text-red-500 font-semibold">{error}</p>
+        <p className="text-green-500 font-semibold">{loading ? "Realizando autenticación espere..." : ""}</p>
+      </div>
+      <div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="flex">
+            <Controller
+              name="email"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  label="Email"
+                  type="email"
+                  placeholder="hello@example.com"
+                  handleChange={onChange}
+                  inputValue={value}
+                  activeError={errors.email}
+                />
+              )}
+            />
+          </div>
+          <div className="flex">
+            <Controller
+              name="password"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  label="Password"
+                  type="password"
+                  placeholder="******"
+                  handleChange={onChange}
+                  inputValue={value}
+                  activeError={errors.password}
+                />
+              )}
+            />
+          </div>
+          <div className="flex flex-row-reverse justify-between my-4">
+            <button className="btn btn-outline btn-primary btn-wide" disabled={loading}>Log in</button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };

@@ -4,6 +4,10 @@ import { signOutFirebase } from "../../firebase/auth";
 
 const menuLinks = [
   {
+    name: "Shop",
+    to: "/",
+  },
+  {
     name: "Products",
     to: "/admin/products",
   },

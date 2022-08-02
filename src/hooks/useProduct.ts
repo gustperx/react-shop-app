@@ -63,7 +63,7 @@ export const useProduct = () => {
     const [file_one, file_two, file_three] = await uploadFiles(files)
     data.image_one = file_one ? file_one : currentProduct!.image_one;
     data.image_two = file_two ? file_two : currentProduct!.image_two;
-    data.image_three = file_three? file_three : currentProduct!.image_three;
+    data.image_three = file_three ? file_three : currentProduct!.image_three;
 
     await dispatch(
       updateProductAsync({

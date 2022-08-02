@@ -10,3 +10,5 @@ export * from "./Modal";
 export * from "./InputSelect";
 export * from "./TextEditor"
 export * from "./FileUploader"
+export * from "./NavbarShop"
+export * from "./FooterShop"
