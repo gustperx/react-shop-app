@@ -33,7 +33,11 @@ export const useShop = () => {
   }
 
   const searchProductByName = (name: string) => {
-    const productList = products.filter(product => product.title.toLowerCase().includes(name.toLowerCase()));
+    if (!name) return [];
+    const productList = products.filter(product =>
+      product.visible &&
+      product.title.toLowerCase().includes(name.toLowerCase())
+    );
     return productList;
   }
 
