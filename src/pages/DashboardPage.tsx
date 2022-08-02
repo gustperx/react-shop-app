@@ -1,19 +1,12 @@
-import { useEffect } from "react";
 import { Alert } from "../components/ui";
 import { useCategory, useProduct } from "../hooks";
 
 export const DashboardPage = () => {
   const {
     products,
-    getProducts,
     loading: loadingProducts,
   } = useProduct();
-  const { categories, getCategories, loading: loadingCategories } = useCategory();
-
-  useEffect(() => {
-    getCategories();
-    getProducts();
-  }, []);
+  const { categories, loading: loadingCategories } = useCategory();
 
   return (
     <>

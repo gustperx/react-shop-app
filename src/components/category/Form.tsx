@@ -42,7 +42,7 @@ export const Form: FC<Props> = ({ handleForm, formValues, handleModal }) => {
             <Input
               label="Name"
               type="text"
-              placeholder="Javascript for example"
+              placeholder="Shoes"
               handleChange={onChange}
               inputValue={value}
               activeError={errors.name}
