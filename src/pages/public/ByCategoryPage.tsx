@@ -16,6 +16,7 @@ export const ByCategoryPage = () => {
 
   return (
     <>
+      <h1 className="text-2xl font-semibold mb-12">Categoría: {name.toUpperCase()}</h1>
       <ProductList products={products} />
     </>
   )
