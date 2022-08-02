@@ -96,9 +96,12 @@ export const useProduct = () => {
   };
 
   const uploadFiles = async (files: string[]) => {
-    const file_one = await uploadImage(files[0]);
-    const file_two = await uploadImage(files[1]);
-    const file_three = await uploadImage(files[2]);
+    const [file_one, file_two, file_three] = await Promise.all([
+      uploadImage(files[0]),
+      uploadImage(files[1]),
+      uploadImage(files[2]),
+    ]);
+
     return [file_one, file_two, file_three]
   }
 

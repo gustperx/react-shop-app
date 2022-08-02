@@ -1,11 +1,10 @@
-import { ChangeEvent, FC, FormEvent, useRef } from 'react'
+import { FC } from 'react'
 
 interface Props {
     onFileSelect: (file: any) => void
 }
 
 export const FileUploader : FC<Props> = ({ onFileSelect }) => {
-    const fileInput = useRef(null)
 
     const handleFileInput = (e: any) => {
         // handle validations
@@ -15,14 +14,17 @@ export const FileUploader : FC<Props> = ({ onFileSelect }) => {
         const fileSize = file.size / 1024 / 1024; // in MiB
 
         if (fileSize > 1) {
-            return alert('Muy pesada')
+            return alert('Imagen no puede ser mayor a 1MB')
         }
 
         onFileSelect(file)
     }
 
     return (
-        <div className="file-uploader">
+        <div className="form-control w-full">
+            <label className="label">
+                <span className="label-text">Image file</span>
+            </label>
             <input type="file" onChange={handleFileInput} accept="image/png, image/jpeg" />
         </div>
     )
