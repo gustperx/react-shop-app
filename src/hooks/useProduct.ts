@@ -115,6 +115,23 @@ export const useProduct = () => {
     return list;
   }
 
+  const getProductsByCategory = (category: string) => {
+    const list = products.filter(product =>
+      product.visible &&
+      product.categories.some(categoryItem => categoryItem.value.toLowerCase().includes(category.toLowerCase())));
+
+    return list;
+  }
+
+  const getProductBySlug = (slug: string) => {
+    const product = products.find(product =>
+      product.visible && product.slug.toLowerCase() === slug.toLowerCase());
+
+    if (!product) return null;
+
+    return product;
+  }
+
   return {
     products,
     getProductById,
@@ -126,5 +143,7 @@ export const useProduct = () => {
     errorMessage,
     getProductsListHome,
     getProductsList,
+    getProductsByCategory,
+    getProductBySlug,
   };
 };

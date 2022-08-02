@@ -10,7 +10,7 @@ export const ProductsPage = () => {
     <>
       {
         loading
-          ? <Alert message="Cargando productos" alert="alert-info" />
+          ? <Alert message="Cargando productos" alert="alert-success" />
           : <ProductList products={getProductsList()} />
       }
     </>
