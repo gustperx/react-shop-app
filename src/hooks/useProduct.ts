@@ -105,33 +105,6 @@ export const useProduct = () => {
     return [file_one, file_two, file_three]
   }
 
-  const getProductsListHome = () => {
-    const list = products.filter(product => product.visible && product.highlight);
-    return list;
-  }
-
-  const getProductsList = () => {
-    const list = products.filter(product => product.visible);
-    return list;
-  }
-
-  const getProductsByCategory = (category: string) => {
-    const list = products.filter(product =>
-      product.visible &&
-      product.categories.some(categoryItem => categoryItem.value.toLowerCase().includes(category.toLowerCase())));
-
-    return list;
-  }
-
-  const getProductBySlug = (slug: string) => {
-    const product = products.find(product =>
-      product.visible && product.slug.toLowerCase() === slug.toLowerCase());
-
-    if (!product) return null;
-
-    return product;
-  }
-
   return {
     products,
     getProductById,
@@ -141,9 +114,5 @@ export const useProduct = () => {
     deleteProduct,
     loading,
     errorMessage,
-    getProductsListHome,
-    getProductsList,
-    getProductsByCategory,
-    getProductBySlug,
   };
 };

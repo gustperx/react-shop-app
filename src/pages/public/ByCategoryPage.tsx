@@ -1,11 +1,11 @@
 import { useMemo } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { ProductList } from "../../components/shop";
-import { useProduct } from "../../hooks";
+import { useShop } from "../../hooks";
 
 export const ByCategoryPage = () => {
 
-  const { getProductsByCategory } = useProduct()
+  const { getProductsByCategory } = useShop()
 
   const { name = "" } = useParams();
   const products = useMemo(() => getProductsByCategory(name), [name]);

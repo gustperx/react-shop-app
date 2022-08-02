@@ -3,11 +3,11 @@ import { Navigate, useParams } from "react-router-dom";
 
 import ReactMarkdown from 'react-markdown'
 
-import { useProduct } from "../../hooks";
+import { useShop } from "../../hooks";
 
 export const SimpleProductPage = () => {
 
-  const { getProductBySlug } = useProduct()
+  const { getProductBySlug } = useShop()
 
   const { slug = "" } = useParams();
   const product = useMemo(() => getProductBySlug(slug), [slug]);

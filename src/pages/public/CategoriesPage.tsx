@@ -1,6 +1,4 @@
-import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
-
 import queryString from "query-string";
 
 import { CategoryList } from "../../components/shop";

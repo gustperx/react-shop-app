@@ -1,10 +1,10 @@
 import { ProductList } from "../../components/shop";
 import { Alert } from "../../components/ui";
-import { useProduct } from "../../hooks";
+import { useShop } from "../../hooks";
 
 export const HomePage = () => {
 
-  const { getProductsListHome, loading } = useProduct();
+  const { getProductsListHome, loading } = useShop();
 
   return (
     <>
