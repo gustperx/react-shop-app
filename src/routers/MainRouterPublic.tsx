@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { Error404 } from "../components";
 import { ShopLayout } from "../components/layouts";
-import { HomePage } from "../pages/public";
+import { ByCategoryPage, CategoriesPage, HomePage, ProductsPage, SimpleProductPage } from "../pages/public";
 
 export const MainRouterPublic = () => {
   return (
@@ -10,11 +10,11 @@ export const MainRouterPublic = () => {
         <Route index element={<HomePage />} />
         <Route path="/" element={<HomePage />} />
 
-        <Route path="/categories" element={<HomePage />} />
-        <Route path="/category/:id" element={<HomePage />} />
+        <Route path="/categories" element={<CategoriesPage />} />
+        <Route path="/category/:name" element={<ByCategoryPage />} />
 
-        <Route path="/products" element={<HomePage />} />
-        <Route path="/product/:slug" element={<HomePage />} />
+        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/product/:slug" element={<SimpleProductPage />} />
 
         <Route path="/search" element={<HomePage />} />
 

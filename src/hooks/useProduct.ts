@@ -105,6 +105,16 @@ export const useProduct = () => {
     return [file_one, file_two, file_three]
   }
 
+  const getProductsListHome = () => {
+    const list = products.filter(product => product.visible && product.highlight);
+    return list;
+  }
+
+  const getProductsList = () => {
+    const list = products.filter(product => product.visible);
+    return list;
+  }
+
   return {
     products,
     getProductById,
@@ -114,5 +124,7 @@ export const useProduct = () => {
     deleteProduct,
     loading,
     errorMessage,
+    getProductsListHome,
+    getProductsList,
   };
 };

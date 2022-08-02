@@ -1,1 +1,5 @@
 export * from "./HomePage"
+export * from "./CategoriesPage"
+export * from "./ProductsPage"
+export * from "./ByCategoryPage"
+export * from "./SimpleProductPage"
