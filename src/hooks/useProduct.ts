@@ -11,6 +11,7 @@ import {
   updateProductAsync,
 } from "../store/slices/product";
 import { ProductAttributes } from "../models";
+import { uploadImage } from "../helpers";
 
 export const useProduct = () => {
   const dispatch = useAppDispatch();
@@ -26,29 +27,47 @@ export const useProduct = () => {
     dispatch(getProductsAsync());
   };
 
-  const createProduct = async (data: ProductAttributes) => {
+  const createProduct = async (data: ProductAttributes, files: string[]) => {
     Swal.fire({
       title: "Espere por favor",
       allowOutsideClick: false,
     });
     Swal.showLoading();
+
+    // Upload files
+    const [file_one, file_two, file_three] = await uploadFiles(files)
+    data.image_one = file_one;
+    data.image_two = file_two;
+    data.image_three = file_three;
+
+    // Create product
     await dispatch(createProductAsync(data));
     Swal.hideLoading();
     Swal.close();
   };
 
   const updateProduct = async (
-    portfolioId: string,
-    data: ProductAttributes
+    productId: string,
+    data: ProductAttributes,
+    files: string[]
   ) => {
     Swal.fire({
       title: "Espere por favor",
       allowOutsideClick: false,
     });
     Swal.showLoading();
+
+    const currentProduct = getProductById(productId)
+
+    // Upload files
+    const [file_one, file_two, file_three] = await uploadFiles(files)
+    data.image_one = file_one ? file_one : currentProduct!.image_one;
+    data.image_two = file_two ? file_two : currentProduct!.image_two;
+    data.image_three = file_three? file_three : currentProduct!.image_three;
+
     await dispatch(
       updateProductAsync({
-        id: portfolioId,
+        id: productId,
         payload: data,
       })
     );
@@ -75,6 +94,13 @@ export const useProduct = () => {
       Swal.close();
     }
   };
+
+  const uploadFiles = async (files: string[]) => {
+    const file_one = await uploadImage(files[0]);
+    const file_two = await uploadImage(files[1]);
+    const file_three = await uploadImage(files[2]);
+    return [file_one, file_two, file_three]
+  }
 
   return {
     products,

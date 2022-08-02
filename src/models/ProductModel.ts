@@ -12,6 +12,9 @@ export interface ProductAttributes {
   categories: ISelectInput[];
   visible: boolean;
   highlight: boolean;
+  image_one?: string;
+  image_two?: string;
+  image_three?: string;
 }
 
 // No hace falta modificar esta interface
@@ -28,6 +31,9 @@ export const productValidationRules = yup
     visible: yup.boolean().required(),
     highlight: yup.boolean().required(),
     categories: yup.array().min(1).required(),
+    image_one: yup.string(),
+    image_two: yup.string(),
+    image_three: yup.string()
   })
   .required();
 

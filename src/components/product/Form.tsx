@@ -3,13 +3,13 @@ import { SubmitHandler, useForm, Controller } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ProductAttributes, productValidationRules } from "../../models";
-import { Input, Checkbox, InputSelect, TextEditor } from "../ui";
+import { Input, Checkbox, InputSelect, TextEditor, FileUploader } from "../ui";
 
 import { useCategory } from "../../hooks";
-import { getSelectOptions } from "../../helpers";
+import { getSelectOptions, uploadImage } from "../../helpers";
 
 interface Props {
-  handleForm: (data: ProductAttributes) => void;
+  handleForm: (data: ProductAttributes, files: string[]) => void;
   formValues?: ProductAttributes;
   handleModal?: Dispatch<SetStateAction<boolean>>;
 }
@@ -28,19 +28,25 @@ export const Form: FC<Props> = ({ handleForm, formValues, handleModal }) => {
   const { categories } = useCategory();
   const options = getSelectOptions(categories.map((item) => item.name));
 
+  const [selectedFileOne, setSelectedFileOne] = useState("");
+  const [selectedFileTwo, setSelectedFileTwo] = useState("");
+  const [selectedFileThree, setSelectedFileThree] = useState("");
+
   useEffect(() => {
     reset(formValues);
   }, [formValues]);
 
-  const onSubmit: SubmitHandler<ProductAttributes> = (data) => {
-    handleForm(data);
+  const onSubmit: SubmitHandler<ProductAttributes> = async (data) => {
+
+    const imagesFiles = [selectedFileOne, selectedFileTwo, selectedFileThree]
+    handleForm(data, imagesFiles);
 
     if (!handleModal) return;
     handleModal(false);
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
       <div className="flex">
         <Controller
           name="title"
@@ -100,6 +106,21 @@ export const Form: FC<Props> = ({ handleForm, formValues, handleModal }) => {
               activeError={errors.description ? true : false}
             />
           )}
+        />
+      </div>
+      <div className="flex">
+        <FileUploader
+          onFileSelect={setSelectedFileOne}
+        />
+      </div>
+      <div className="flex">
+        <FileUploader
+          onFileSelect={setSelectedFileTwo}
+        />
+      </div>
+      <div className="flex">
+        <FileUploader
+          onFileSelect={setSelectedFileThree}
         />
       </div>
       <div className="flex">

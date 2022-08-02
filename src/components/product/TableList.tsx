@@ -39,17 +39,20 @@ export const TableList: FC<Props> = ({ products }) => {
     setCurrentId("");
     setSeletedProduct({
       title: "",
-      description: "",
+      description: {html: "", text: ""},
       slug: "",
       visible: false,
       highlight: false,
-      languages: [],
+      categories: [],
+      image_one: "",
+      image_two: "",
+      image_three: ""
     });
   };
 
-  const handleEdit = async (data: ProductAttributes) => {
+  const handleEdit = async (data: ProductAttributes, files: string[]) => {
     if (!currentId) return;
-    await updateProduct(currentId, data);
+    await updateProduct(currentId, data, files);
   };
 
   return (
